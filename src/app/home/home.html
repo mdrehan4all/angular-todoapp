@@ -1,0 +1,16 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Today</h1>
+            <textarea class="form-control" [(ngModel)]="day" (keyup)="save()"></textarea>
+        </div>
+        <div class="col-md-4">
+            <h1>Week</h1>
+            <textarea class="form-control" [(ngModel)]="week" (keyup)="save()"></textarea>
+        </div>
+        <div class="col-md-4">
+            <h1>Month</h1>
+            <textarea class="form-control" [(ngModel)]="month" (keyup)="save()"></textarea>
+        </div>
+    </div>
+</div>
