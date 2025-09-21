@@ -2,3 +2,38 @@
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+/* src/styles.css or a dedicated theme file */
+:root {
+  /* Light mode variables */
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --border-color: #cccccc;
+}
+
+.dark-mode {
+  /* Dark mode variables */
+  --background-color: #333333;
+  --text-color: #ffffff;
+  --border-color: #555555;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  border: 1px solid var(--border-color);
+}
+
+.form-control {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+.form-control:focus {
+  background-color: var(--background-color);
+  border-color: var(--border-color);
+  color: var(--text-color);
+  box-shadow: none; /* Remove default focus shadow */
+}

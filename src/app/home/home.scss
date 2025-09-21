@@ -1,3 +1,5 @@
 .form-control{
     height: 80vh;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;
 }

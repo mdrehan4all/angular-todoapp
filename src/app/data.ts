@@ -1,13 +1,42 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Data {
   url = "https://macet-website-default-rtdb.asia-southeast1.firebasedatabase.app/todoapp.json";
-  
-  constructor(private http: HttpClient){}
+  private darkModeSignal = signal<boolean>(false);
+
+  constructor(private http: HttpClient){
+    const savedTheme = localStorage.getItem('darkMode');
+    if (savedTheme !== null) {
+      this.darkModeSignal.set(savedTheme === 'true');
+    } else {
+      // Check system preference if no saved theme
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      this.darkModeSignal.set(prefersDark);
+    }
+    this.applyTheme(); // Apply initial theme
+  }
+  toggleDarkMode(): void {
+    this.darkModeSignal.update((current) => !current);
+    this.applyTheme();
+  }
+
+  isDarkMode(): boolean {
+    return this.darkModeSignal();
+  }
+
+  private applyTheme(): void {
+    if (this.darkModeSignal()) {
+      document.documentElement.classList.add('dark-mode');
+      localStorage.setItem('darkMode', 'true');
+    } else {
+      document.documentElement.classList.remove('dark-mode');
+      localStorage.setItem('darkMode', 'false');
+    }
+  }
 
   sendData(obj: any){
     return this.http.put(this.url, obj)
