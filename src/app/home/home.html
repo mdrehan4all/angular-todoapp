@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
+    <div class="row mt-4" *ngIf="logged">
         <div class="col-md-4">
             <h1>Today</h1>
             <textarea class="form-control" [(ngModel)]="day" (keyup)="save()"></textarea>
@@ -12,5 +12,19 @@
             <h1>Month</h1>
             <textarea class="form-control" [(ngModel)]="month" (keyup)="save()"></textarea>
         </div>
+        <div class="col-md-12 mt-4 text-center">
+            <button class="btn btn-danger btn-sm" (click)="logout()">Logout</button>
+        </div>  
+    </div>
+    <div class="row mt-5" *ngIf="!logged">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h1>Login</h1>
+            <input type="text" class="input-box" placeholder="Username" [(ngModel)]="username">
+            <input type="password" class="input-box mt-2" placeholder="Password" [(ngModel)]="password">
+            <button class="btn btn-primary w-100 mt-2" (click)="login()" *ngIf="!logged">Login</button>
+            
+        </div>
+        <div class="col-md-4"></div>
     </div>
 </div>

@@ -5,7 +5,9 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class Data {
+  // Add firebase realtime database url here
   url = "https://macet-website-default-rtdb.asia-southeast1.firebasedatabase.app/todoapp.json";
+  
   private darkModeSignal = signal<boolean>(false);
 
   constructor(private http: HttpClient){
@@ -38,12 +40,13 @@ export class Data {
     }
   }
 
+  // send data to firebase realtime database
   sendData(obj: any){
     return this.http.put(this.url, obj)
   }
 
+  // get data from firebase realtime database
   getData(){
     return this.http.get(this.url)
   }
-
 }

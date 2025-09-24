@@ -19,6 +19,7 @@ export class Home implements OnInit {
   };
 
   tout: any;
+  logged: boolean = false;
 
   constructor(private dataService: Data) {}
 
@@ -36,6 +37,8 @@ export class Home implements OnInit {
       this.week = this.data?.week;
       this.month = this.data?.month;
     });
+
+    localStorage.getItem("token") ? this.logged = true : this.logged = false;
   }
 
   save() {
@@ -54,5 +57,24 @@ export class Home implements OnInit {
         console.log(res);
       });
     }, 1000);
+  }
+
+  username: string = '';
+  password: string = '';
+
+  login() {
+    // Add your login logic here
+    if(this.username == 'mdrehan4all@gmail.com' && this.password == 'abcd'){
+      const time = new Date().getMilliseconds();
+      localStorage.setItem("token", "token-"+time);
+      this.logged = true;
+    }else{
+      alert("Invalid credentials");
+    }
+  }
+
+  logout() {
+    localStorage.removeItem("token");
+    this.logged = false;
   }
 }
