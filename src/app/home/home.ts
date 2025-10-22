@@ -20,6 +20,7 @@ export class Home implements OnInit {
 
   tout: any;
   logged: boolean = false;
+  url: string = '';
 
   constructor(private dataService: Data) {}
 
@@ -48,13 +49,18 @@ export class Home implements OnInit {
       month: this.month,
     };
     //localStorage.setItem("data", JSON.stringify(this.data));
-    
+
     if(this.tout){
       clearTimeout(this.tout)
     }
     this.tout = setTimeout(()=>{
+      this.dataService.progress = "Saving...";
       this.dataService.sendData(this.data).subscribe((res: any)=>{
         console.log(res);
+        this.dataService.progress = "Saved";
+      }, (err: any)=>{
+        console.log(err);
+        this.dataService.progress = "Error saving data";
       });
     }, 1000);
   }
@@ -76,5 +82,19 @@ export class Home implements OnInit {
   logout() {
     localStorage.removeItem("token");
     this.logged = false;
+  }
+
+  downloadJson(data: any, filename: string): void {
+    const jsonString = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   }
 }
