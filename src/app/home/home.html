@@ -1,26 +1,35 @@
 <div class="container-fluid">
     <div class="row mt-4" *ngIf="logged">
         <div class="col-md-4">
-            <h1>Today</h1>
-            <textarea class="form-control" [(ngModel)]="day" (keyup)="save()"></textarea>
+            <div class="w-100 p-2 text-center">Today</div>
+            <textarea class="form-control" [(ngModel)]="day" (keyup)="save()" #textareaToday></textarea>
+            <button class="btn btn-outline-warning btn-sm toggle-btn" #buttonToday (click)="toggleFullScreen(textareaToday, buttonToday)">Toggle full screen</button>
         </div>
         <div class="col-md-4">
-            <h1>Week</h1>
-            <textarea class="form-control" [(ngModel)]="week" (keyup)="save()"></textarea>
+            <div class="w-100 p-2 text-center">Week</div>
+            <textarea class="form-control" [(ngModel)]="week" (keyup)="save()" #textareaWeek></textarea>
+            <button class="btn btn-outline-warning btn-sm toggle-btn" #buttonWeek (click)="toggleFullScreen(textareaWeek, buttonWeek)">Toggle full screen</button>
         </div>
         <div class="col-md-4">
-            <h1>Month</h1>
-            <textarea class="form-control" [(ngModel)]="month" (keyup)="save()"></textarea>
+            <div class="w-100 p-2 text-center">Month</div>
+            <textarea class="form-control" [(ngModel)]="month" (keyup)="save()" #textareaMonth></textarea>
+            <button class="btn btn-outline-warning btn-sm toggle-btn" #buttonMonth (click)="toggleFullScreen(textareaMonth, buttonMonth)">Toggle full screen</button>
+        </div>
+        <div class="col-md-4">
+            <div class="w-100 p-2 text-center">Year</div>
+            <textarea class="form-control" [(ngModel)]="year" (keyup)="save()" #textareaYear></textarea>
+            <button class="btn btn-outline-warning btn-sm toggle-btn" #buttonYear (click)="toggleFullScreen(textareaYear, buttonYear)">Toggle full screen</button>
         </div>
         <div class="col-md-12 mt-4 text-center">
             <button class="btn btn-danger btn-sm" (click)="logout()">Logout</button>
             <button class="btn btn-success btn-sm ms-2" (click)="downloadJson(data, 'todo.json')">Download JSON</button>
         </div>  
     </div>
+
     <div class="row mt-5" *ngIf="!logged">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <h1>Login</h1>
+            <div class="w-100 p-2 text-center">Login</div>
             <input type="text" class="input-box" placeholder="Username" [(ngModel)]="username">
             <input type="password" class="input-box mt-2" placeholder="Password" [(ngModel)]="password">
             <button class="btn btn-primary w-100 mt-2" (click)="login()" *ngIf="!logged">Login</button>

@@ -11,11 +11,13 @@ export class Home implements OnInit {
   day: string = '';
   week: string = '';
   month: string = '';
+  year: string = '';
 
   data: any = {
     day: this.day,
     week: this.week,
     month: this.month,
+    year: this.year,
   };
 
   tout: any;
@@ -29,6 +31,7 @@ export class Home implements OnInit {
     this.day = this.data?.day;
     this.week = this.data?.week;
     this.month = this.data?.month;
+    this.year = this.data?.year;
 
     this.dataService.getData().subscribe((res: any)=>{
       console.log(res);
@@ -37,6 +40,7 @@ export class Home implements OnInit {
       this.day = this.data?.day;
       this.week = this.data?.week;
       this.month = this.data?.month;
+      this.year = this.data?.year;
     });
 
     localStorage.getItem("token") ? this.logged = true : this.logged = false;
@@ -47,6 +51,7 @@ export class Home implements OnInit {
       day: this.day,
       week: this.week,
       month: this.month,
+      year: this.year,
     };
     //localStorage.setItem("data", JSON.stringify(this.data));
 
@@ -96,5 +101,38 @@ export class Home implements OnInit {
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
+  }
+
+  toggleFlag: boolean = false;
+  toggleFullScreen(element?: HTMLElement, button?: HTMLElement) {
+    if (!this.toggleFlag) {
+      this.toggleFlag = true;  
+      element?.style.setProperty('width', '100%');
+      element?.style.setProperty('height', '100vh');
+      element?.style.setProperty('position', 'fixed');
+      element?.style.setProperty('top', '0');
+      element?.style.setProperty('left', '0');
+      element?.style.setProperty('scrollbar-width', '20px');
+
+      button?.style.setProperty('position', 'fixed');
+      button?.style.setProperty('top', '10px');
+      button?.style.setProperty('right', '10px');
+      if (button) button.innerText = 'X';
+    }else{
+      this.toggleFlag = false;
+      element?.style.removeProperty('width');
+      element?.style.removeProperty('height');
+      element?.style.removeProperty('position');
+      element?.style.removeProperty('top');
+      element?.style.removeProperty('left');
+
+      // button?.style.setProperty('position', 'relative');
+      // button?.style.setProperty('left', 'calc(100% - 129px)');
+      // button?.style.setProperty('top', '-35px');
+        button?.style.removeProperty('position');
+        button?.style.removeProperty('top');
+        button?.style.removeProperty('right');
+      if (button) button.innerText = 'Toggle full screen';
+    }
   }
 }
